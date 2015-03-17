@@ -663,9 +663,14 @@
 
   </ControlTemplate>
 
-  <ControlTemplate x:Key="PlayerControlVideoPrimary">
+<ControlTemplate x:Key="PlayerControlVideoPrimary">
     <Rectangle x:Name="Video"  Width="300" Height="170" Margin="0,-5,-25,-5"
-               RadiusX="{ThemeResource PlayerControlBorderRadius}" RadiusY="{ThemeResource PlayerControlBorderRadius}">
+              RadiusX="{ThemeResource PlayerControlBorderRadius}" RadiusY="{ThemeResource PlayerControlBorderRadius}">
+      <Rectangle.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseDown">
+          <TriggerCommand Command="{Command Source={Service WorkflowManager},Path=NavigatePush,Parameters=882C1142-8028-4112-A67D-370E6E483A33}"/>
+        </EventTrigger>
+      </Rectangle.Triggers>
       <Rectangle.Fill>
         <VideoBrush Stream="0"/>
       </Rectangle.Fill>

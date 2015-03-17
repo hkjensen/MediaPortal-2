@@ -591,6 +591,7 @@ namespace MediaPortal.UI.SkinEngine.MarkupExtensions
     {
       if (sourcePathProperty != null)
       {
+        lock (_attachedPropertiesCollection)
         _attachedPropertiesCollection.Add(sourcePathProperty);
         sourcePathProperty.Attach(OnDataContextChanged);
       }
@@ -603,10 +604,13 @@ namespace MediaPortal.UI.SkinEngine.MarkupExtensions
     /// </summary>
     protected void ResetChangeHandlerAttachments()
     {
-      foreach (AbstractProperty property in _attachedPropertiesCollection)
-        property.Detach(OnDataContextChanged);
-      _attachedPropertiesCollection.Clear();
-      if (_attachedSource != null)
+      lock (_attachedPropertiesCollection)
+            {
+              foreach (AbstractProperty property in _attachedPropertiesCollection)
+                property.Detach(OnDataContextChanged);
+              _attachedPropertiesCollection.Clear();
+            }
+          if (_attachedSource != null)
       {
         _attachedSource.Detach(OnBindingSourceChange);
         _attachedSource = null;
